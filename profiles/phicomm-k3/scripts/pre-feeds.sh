@@ -20,8 +20,8 @@ clone_repo() {
   fi
 }
 
-FIRMWARE_VARIANT='69027'
-FIRMWARE_PATH='package/lean/k3-brcmfmac4366c-firmware/files/lib/firmware/brcm/brcmfmac4366c-pcie.bin'
+FIRMWARE_URL='https://raw.githubusercontent.com/coolsnowwolf/lede/refs/heads/master/package/lean/k3-firmware/files/brcmfmac4366c-pcie.bin'
+FIRMWARE_PATH='package/lean/k3-firmware/files/brcmfmac4366c-pcie.bin'
 
 echo '>>> Add Passwall Feed >>>'
 append_feed_if_missing 'src-git passwall https://github.com/openwrt-passwall/openwrt-passwall-packages'
@@ -31,9 +31,24 @@ echo '>>> Clone Passwall Package >>>'
 clone_repo 'https://github.com/openwrt-passwall/openwrt-passwall' 'main' 'package/lean/luci-app-passwall'
 echo '<<< Completed Clone Passwall Package <<<'
 
-echo '>>> Clone Argon Theme >>>'
-clone_repo 'https://github.com/jerrykuku/luci-theme-argon' '18.06' 'package/lean/luci-theme-argon'
-echo '<<< Completed Clone Argon Theme <<<'
+echo '>>> Clone Glass LuCI Theme >>>'
+clone_repo 'https://github.com/rchen14b/luci-theme-glass.git' 'main' 'package/lean/luci-theme-glass'
+echo '<<< Completed Clone Glass LuCI Theme <<<'
+
+echo '>>> Clone Additional LuCI Packages >>>'
+KENZOK_REPO='package/lean/kenzok8-packages'
+clone_repo 'https://github.com/kenzok8/openwrt-packages.git' 'master' "$KENZOK_REPO"
+
+for package in luci-app-advanced luci-app-store luci-app-gost gost luci-lib-taskd luci-lib-xterm taskd; do
+  rm -rf "package/lean/$package"
+  mv "$KENZOK_REPO/$package" "package/lean/$package"
+done
+
+rm -rf package/lean/luci-app-lucky package/lean/lucky
+mv "$KENZOK_REPO/luci-app-lucky/luci-app-lucky" package/lean/luci-app-lucky
+mv "$KENZOK_REPO/luci-app-lucky/lucky" package/lean/lucky
+rm -rf "$KENZOK_REPO"
+echo '<<< Completed Clone Additional LuCI Packages <<<'
 
 echo '>>> Clone K3 Screen App >>>'
 clone_repo 'https://github.com/yangxu52/luci-app-k3screenctrl.git' '' 'package/lean/luci-app-k3screenctrl'
@@ -43,7 +58,7 @@ echo '>>> Clone K3 Screen Driver >>>'
 clone_repo 'https://github.com/yangxu52/k3screenctrl_build.git' '' 'package/lean/k3screenctrl'
 echo '<<< Completed Clone K3 Screen Driver <<<'
 
-echo '>>> Replace Wireless Firmware >>>'
+echo '>>> Fetch LEDE Wireless Firmware >>>'
 mkdir -p "$(dirname "$FIRMWARE_PATH")"
-wget -nv "https://github.com/yangxu52/Phicomm-k3-Wireless-Firmware/raw/master/brcmfmac4366c-pcie.bin.${FIRMWARE_VARIANT}" -O "$FIRMWARE_PATH"
-echo '<<< Completed Replace Wireless Firmware <<<'
+wget -nv "$FIRMWARE_URL" -O "$FIRMWARE_PATH"
+echo '<<< Completed Fetch LEDE Wireless Firmware <<<'

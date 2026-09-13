@@ -11,7 +11,7 @@ Phicomm K3 OpenWrt Firmware, compile by Github Actions
 
 - [Application passwall @xiaoruoji](https://github.com/xiaorouji/openwrt-passwall ) 
 
-- [Luci theme Argon @jerrykuku](https://github.com/jerrykuku/luci-theme-argon)  
+- [Luci theme Glass](https://github.com/rchen14b/luci-theme-glass)
 
 - [K3 Screen Deive and Controller @lwz322](https://github.com/lwz322/k3screenctrl_build)  
 
