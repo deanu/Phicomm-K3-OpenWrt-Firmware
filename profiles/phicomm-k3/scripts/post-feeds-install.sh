@@ -17,11 +17,11 @@ echo '>>> Remove Autocore Benchmark Display >>>'
 sed -i 's/ <%=luci.sys.exec("cat \/etc\/bench.log") or ""%>//g' "${AUTOCORE_INDEX}"
 echo '<<< Completed Remove Autocore Benchmark Display <<<'
 
-echo '>>> Remove Argon Console Log >>>'
-sed -i '/console.log(mainNodeName);/d' "${ARGON_SCRIPT}"
-echo '<<< Completed Remove Argon Console Log <<<'
+# echo '>>> Remove Argon Console Log >>>'
+# sed -i '/console.log(mainNodeName);/d' "${ARGON_SCRIPT}"
+# echo '<<< Completed Remove Argon Console Log <<<'
 
-echo '>>> Update MiniUPnPd Lease Path >>>'
-sed -i 's/\/var\/upnp.leases/\/tmp\/upnp.leases/g' "${MINIUPNPD_CONFIG}"
-grep -n 'upnp_lease_file=/tmp/upnp.leases' "${MINIUPNPD_CONFIG}"
-echo '<<< Completed Update MiniUPnPd Lease Path <<<'
+# echo '>>> Update MiniUPnPd Lease Path >>>'
+# sed -i 's/\/var\/upnp.leases/\/tmp\/upnp.leases/g' "${MINIUPNPD_CONFIG}"
+# grep -n 'upnp_lease_file=/tmp/upnp.leases' "${MINIUPNPD_CONFIG}"
+# echo '<<< Completed Update MiniUPnPd Lease Path <<<'
