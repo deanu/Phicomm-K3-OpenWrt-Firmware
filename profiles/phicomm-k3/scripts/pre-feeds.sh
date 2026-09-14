@@ -44,6 +44,11 @@ for package in luci-app-advanced luci-app-store luci-app-gost gost luci-lib-task
   mv "$KENZOK_REPO/$package" "package/lean/$package"
 done
 
+# luci-app-gost duplicates the core gost package's UCI config and init script.
+# Keep those files in the core package and let LuCI provide only its interface.
+rm -f package/lean/luci-app-gost/root/etc/config/gost
+rm -f package/lean/luci-app-gost/root/etc/init.d/gost
+
 rm -rf package/lean/luci-app-lucky package/lean/lucky
 mv "$KENZOK_REPO/luci-app-lucky/luci-app-lucky" package/lean/luci-app-lucky
 mv "$KENZOK_REPO/luci-app-lucky/lucky" package/lean/lucky
