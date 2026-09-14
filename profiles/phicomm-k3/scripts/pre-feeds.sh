@@ -39,7 +39,7 @@ echo '>>> Clone Additional LuCI Packages >>>'
 KENZOK_REPO='package/lean/kenzok8-packages'
 clone_repo 'https://github.com/kenzok8/openwrt-packages.git' 'master' "$KENZOK_REPO"
 
-for package in luci-app-advanced luci-app-store luci-lib-taskd luci-lib-xterm taskd; do
+for package in luci-app-advanced luci-app-store luci-app-gost gost luci-lib-taskd luci-lib-xterm taskd; do
   rm -rf "package/lean/$package"
   mv "$KENZOK_REPO/$package" "package/lean/$package"
 done
