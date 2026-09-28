@@ -39,19 +39,11 @@ echo '>>> Clone Additional LuCI Packages >>>'
 KENZOK_REPO='package/lean/kenzok8-packages'
 clone_repo 'https://github.com/kenzok8/openwrt-packages.git' 'master' "$KENZOK_REPO"
 
-for package in luci-app-advanced luci-app-store luci-app-gost gost luci-lib-taskd luci-lib-xterm taskd; do
+for package in luci-app-advanced luci-app-store luci-lib-taskd luci-lib-xterm taskd; do
   rm -rf "package/lean/$package"
   mv "$KENZOK_REPO/$package" "package/lean/$package"
 done
 
-# luci-app-gost duplicates the core gost package's UCI config and init script.
-# Keep those files in the core package and let LuCI provide only its interface.
-rm -f package/lean/luci-app-gost/root/etc/config/gost
-rm -f package/lean/luci-app-gost/root/etc/init.d/gost
-
-rm -rf package/lean/luci-app-lucky package/lean/lucky
-mv "$KENZOK_REPO/luci-app-lucky/luci-app-lucky" package/lean/luci-app-lucky
-mv "$KENZOK_REPO/luci-app-lucky/lucky" package/lean/lucky
 rm -rf "$KENZOK_REPO"
 echo '<<< Completed Clone Additional LuCI Packages <<<'
 
